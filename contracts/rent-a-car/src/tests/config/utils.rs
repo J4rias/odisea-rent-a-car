@@ -1,4 +1,4 @@
-use soroban_sdk::{token, Address, Env};
+use soroban_sdk::{Address, Env, Val, Vec, testutils::Events, token};
 
 pub(crate) fn create_token_contract<'a>(
     e: &Env,
@@ -10,4 +10,19 @@ pub(crate) fn create_token_contract<'a>(
         token::Client::new(e, &addr.address()),
         token::StellarAssetClient::new(e, &addr.address()),
     )
+}
+
+pub(crate) fn get_contract_events(
+    env: &Env,
+    contract_address: &Address,
+) -> Vec<(Address, Vec<Val>, Val)> {
+    let mut contract_events = Vec::new(env);
+
+    env.events()
+        .all()
+        .iter()
+        .filter(|event| event.0 == contract_address.clone())
+        .for_each(|event| contract_events.push_back(event));
+
+    contract_events
 }

@@ -1,5 +1,6 @@
 use soroban_sdk::{testutils::Address as _, token, Address, Env};
-use crate::{contract::RentACarContractClient, RentACarContract};
+use crate::{contract::RentACarContractClient};
+use crate::contract::RentACarContract;
 use crate::tests::config::utils::create_token_contract;
 
 pub struct ContractTest<'a> {
